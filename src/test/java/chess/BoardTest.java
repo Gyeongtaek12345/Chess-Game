@@ -49,4 +49,12 @@ class BoardTest {
         assertEquals(Piece.createWhiteRook(new Position("a1")), board.findPiece("a1"));
         assertEquals(Piece.createWhiteRook(new Position("h1")), board.findPiece("h1"));
     }
+    @Test
+    @DisplayName("보드에 추가된 피스들의 갯수가 맞는지 체크합니다.")
+    public void countPiece() throws Exception {
+        board.initialize();
+        assertEquals(8, board.countPiece(Piece.PieceColor.WHITE, Piece.PieceType.PAWN));
+        assertEquals(2, board.countPiece(Piece.PieceColor.WHITE, Piece.PieceType.ROOK));
+        assertEquals(1, board.countPiece(Piece.PieceColor.WHITE, Piece.PieceType.KING));
+    }
 }

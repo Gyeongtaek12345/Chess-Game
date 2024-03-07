@@ -54,5 +54,11 @@ public class Board {
         Position target = new Position(position);
         return ranks.get(target.getY()).findPiece(target.getX());
     }
-
+    public int countPiece(Piece.PieceColor pieceColor, Piece.PieceType pieceType){
+        int count = 0;
+        for(Rank rank : ranks){
+            count += rank.countPiece(pieceColor,pieceType);
+        }
+        return count;
+    }
 }

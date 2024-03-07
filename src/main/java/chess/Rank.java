@@ -2,6 +2,8 @@ package chess;
 
 import pieces.Piece;
 import pieces.Position;
+import pieces.Piece.PieceColor;
+import pieces.Piece.PieceType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +19,15 @@ public class Rank {
     }
     public Piece findPiece(int xIndex){
         return pieces.get(xIndex);
+    }
+    public int countPiece(PieceColor pieceColor, PieceType pieceType){
+        int count = 0;
+        for(Piece piece : pieces){
+            if (piece.getColor().equals(pieceColor) && piece.getPieceType().equals(pieceType)){
+                count++;
+            }
+        }
+        return count;
     }
     public static Rank initializeWhitePawns(int rankIndex){
         Rank rank = new Rank();
