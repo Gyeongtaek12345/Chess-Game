@@ -1,9 +1,11 @@
 package chess;
 
 import pieces.Piece;
+import pieces.Position;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 import static utils.StringUtils.*;
 
@@ -16,37 +18,41 @@ public class Board {
         ranks.add(rank);
     }
     public void initialize(){
-        addRanks(Rank.initializeBlackPieces());
-        addRanks(Rank.initializeBlackPawns());
-        addRanks(Rank.initializeBlank());
-        addRanks(Rank.initializeBlank());
-        addRanks(Rank.initializeBlank());
-        addRanks(Rank.initializeBlank());
-        addRanks(Rank.initializeWhitePawns());
-        addRanks(Rank.initializeWhitePieces());
+        addRanks(Rank.initializeWhitePieces(0));
+        addRanks(Rank.initializeWhitePawns(1));
+        addRanks(Rank.initializeBlank(2));
+        addRanks(Rank.initializeBlank(3));
+        addRanks(Rank.initializeBlank(4));
+        addRanks(Rank.initializeBlank(5));
+        addRanks(Rank.initializeBlackPawns(6));
+        addRanks(Rank.initializeBlackPieces(7));
+    }
+    public void initializeEmpty(){
+        for (int i = 0;i<BOARD_HEIGHT;i++){
+            addRanks(Rank.initializeBlank(i));
+        }
     }
     public int totalSize(){
         return pieceCount;
     }
-//    public Piece findWhitePawn(int index){
-//        return whitePawns.get(index);
-//    }
-//    public Piece findBlackPawn(int index){
-//        return blackPawns.get(index);
-//    }
     private String getRankString(Rank rank) {
         StringBuilder sb = new StringBuilder();
         for (Piece piece : rank.getPieces()) {
             sb.append(piece.getRepresentation());
         }
-        return sb.toString();
+        return appendNewLine(sb.toString());
     }
     public String showBoard(){
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i<ranks.size()-1;i++){
-            sb.append(appendNewLine(getRankString(ranks.get(i))));
+        ListIterator<Rank> ranksItr = ranks.listIterator(ranks.size());
+        while(ranksItr.hasPrevious()){
+            sb.append(getRankString(ranksItr.previous()));
         }
-        sb.append(getRankString(ranks.get(7)));
         return sb.toString();
     }
+    public Piece findPiece(String position) {
+        Position target = new Position(position);
+        return ranks.get(target.getY()).findPiece(target.getX());
+    }
+
 }
