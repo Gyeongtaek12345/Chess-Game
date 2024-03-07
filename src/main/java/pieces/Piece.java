@@ -1,10 +1,25 @@
 package pieces;
 
-import static pieces.PieceColor.*;
-//import static pieces.Piece.PieceColor.*;
-import static pieces.PieceType.*;
-
+import static pieces.Piece.PieceColor.*;
+import static pieces.Piece.PieceType.*;
 public class Piece {
+    public enum PieceColor {
+        WHITE, BLACK, NOCOLOR;
+    }
+    public enum PieceType {
+        PAWN('p'), KNIGHT('n'), ROOK('r'),
+        BISHOP('b'), QUEEN('q'), KING('k');
+        private final char representation;
+        PieceType(char representation) {
+            this.representation = representation;
+        }
+        public char getWhiteRepresentation() {
+            return this.representation;
+        }
+        public char getBlackRepresentation() {
+            return Character.toUpperCase(this.representation);
+        }
+    }
     private final PieceColor teamColor;
     private final PieceType pieceType;
     private Piece(PieceColor color, PieceType pieceType){
