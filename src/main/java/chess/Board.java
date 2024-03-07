@@ -1,13 +1,12 @@
 package chess;
 
 import pieces.Piece;
-import pieces.PieceColor;
-import pieces.PieceType;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static utils.StringUtils.*;
+import static pieces.Piece.PieceType.*;
 
 public class Board {
     private final int BOARD_WIDTH = 8;
@@ -18,7 +17,7 @@ public class Board {
     private List<Piece> whitePieces = new ArrayList<Piece>();
     private List<Piece> blackPieces = new ArrayList<Piece>();
     public void addPiece(Piece piece) {
-        if(piece.getPieceType().equals(PieceType.PAWN)){
+        if(piece.getPieceType().equals(PAWN)){
             if(piece.isWhite()){
                 whitePawns.add(piece);
             }else{

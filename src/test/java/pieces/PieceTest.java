@@ -8,39 +8,41 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
+import static pieces.Piece.PieceColor.*;
+import static pieces.Piece.PieceType.*;
 
 class PieceTest {
     @ParameterizedTest
     @MethodSource("whitePieceTypeProvider")
-    void createWhitePieces(Piece piece,PieceType pieceType){
-        verifyPiece(piece,PieceColor.WHITE, pieceType);
+    void createWhitePieces(Piece piece, Piece.PieceType pieceType){
+        verifyPiece(piece, WHITE, pieceType);
     }
     static Stream<Arguments> whitePieceTypeProvider() {
         return Stream.of(
-                arguments(Piece.createWhitePawn(), PieceType.PAWN),
-                arguments(Piece.createWhiteRook(), PieceType.ROOK),
-                arguments(Piece.createWhiteKnight(), PieceType.KNIGHT),
-                arguments(Piece.createWhiteBishop(), PieceType.BISHOP),
-                arguments(Piece.createWhiteQueen(), PieceType.QUEEN),
-                arguments(Piece.createWhiteKing(), PieceType.KING)
+                arguments(Piece.createWhitePawn(), PAWN),
+                arguments(Piece.createWhiteRook(), ROOK),
+                arguments(Piece.createWhiteKnight(), KNIGHT),
+                arguments(Piece.createWhiteBishop(), BISHOP),
+                arguments(Piece.createWhiteQueen(), QUEEN),
+                arguments(Piece.createWhiteKing(), KING)
         );
     }
     @ParameterizedTest
     @MethodSource("blackPieceTypeProvider")
-    void createBlackPieces(Piece piece,PieceType pieceType){
-        verifyPiece(piece,PieceColor.BLACK, pieceType);
+    void createBlackPieces(Piece piece,Piece.PieceType pieceType){
+        verifyPiece(piece,BLACK, pieceType);
     }
     static Stream<Arguments> blackPieceTypeProvider() {
         return Stream.of(
-                arguments(Piece.createBlackPawn(), PieceType.PAWN),
-                arguments(Piece.createBlackRook(), PieceType.ROOK),
-                arguments(Piece.createBlackKnight(), PieceType.KNIGHT),
-                arguments(Piece.createBlackBishop(), PieceType.BISHOP),
-                arguments(Piece.createBlackQueen(), PieceType.QUEEN),
-                arguments(Piece.createBlackKing(), PieceType.KING)
+                arguments(Piece.createBlackPawn(), PAWN),
+                arguments(Piece.createBlackRook(), ROOK),
+                arguments(Piece.createBlackKnight(), KNIGHT),
+                arguments(Piece.createBlackBishop(), BISHOP),
+                arguments(Piece.createBlackQueen(), QUEEN),
+                arguments(Piece.createBlackKing(), KING)
         );
     }
-    void verifyPiece(final Piece piece,final PieceColor color, final PieceType pieceType) {
+    void verifyPiece(final Piece piece, final Piece.PieceColor color, final Piece.PieceType pieceType) {
         assertEquals(color, piece.getColor());
         if (piece.isWhite()){
             assertEquals(pieceType.getWhiteRepresentation(), piece.getRepresentation());
