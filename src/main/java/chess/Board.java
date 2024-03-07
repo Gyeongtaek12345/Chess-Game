@@ -6,97 +6,47 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static utils.StringUtils.*;
-import static pieces.Piece.PieceType.*;
 
 public class Board {
     private final int BOARD_WIDTH = 8;
     private final int BOARD_HEIGHT = 8;
     private int pieceCount = 0;
-    private List<Piece> whitePawns = new ArrayList<Piece>();
-    private List<Piece> blackPawns = new ArrayList<Piece>();
-    private List<Piece> whitePieces = new ArrayList<Piece>();
-    private List<Piece> blackPieces = new ArrayList<Piece>();
-    public void addPiece(Piece piece) {
-        if(piece.getPieceType().equals(PAWN)){
-            if(piece.isWhite()){
-                whitePawns.add(piece);
-            }else{
-                blackPawns.add(piece);
-            }
-            pieceCount++;
-        }else{
-            if(piece.isWhite()){
-                whitePieces.add(piece);
-            }else{
-                blackPieces.add(piece);
-            }
-            pieceCount++;
-        }
+    private List<Rank> ranks = new ArrayList<>(BOARD_HEIGHT);
+    public void addRanks(Rank rank) {
+        ranks.add(rank);
+    }
+    public void initialize(){
+        addRanks(Rank.initializeBlackPieces());
+        addRanks(Rank.initializeBlackPawns());
+        addRanks(Rank.initializeBlank());
+        addRanks(Rank.initializeBlank());
+        addRanks(Rank.initializeBlank());
+        addRanks(Rank.initializeBlank());
+        addRanks(Rank.initializeWhitePawns());
+        addRanks(Rank.initializeWhitePieces());
     }
     public int totalSize(){
         return pieceCount;
     }
-    public Piece findWhitePawn(int index){
-        return whitePawns.get(index);
-    }
-    public Piece findBlackPawn(int index){
-        return blackPawns.get(index);
-    }
-    public void initialize(){
-        //White init
-        for(int i = 0; i < BOARD_WIDTH; i++) {
-            addPiece(Piece.createWhitePawn());
-        }
-        addPiece(Piece.createWhiteRook());
-        addPiece(Piece.createWhiteKnight());
-        addPiece(Piece.createWhiteBishop());
-        addPiece(Piece.createWhiteQueen());
-        addPiece(Piece.createWhiteKing());
-        addPiece(Piece.createWhiteBishop());
-        addPiece(Piece.createWhiteKnight());
-        addPiece(Piece.createWhiteRook());
-        //Black init
-        for(int i = 0; i < BOARD_WIDTH; i++) {
-            addPiece(Piece.createBlackPawn());
-        }
-        addPiece(Piece.createBlackRook());
-        addPiece(Piece.createBlackKnight());
-        addPiece(Piece.createBlackBishop());
-        addPiece(Piece.createBlackQueen());
-        addPiece(Piece.createBlackKing());
-        addPiece(Piece.createBlackBishop());
-        addPiece(Piece.createBlackKnight());
-        addPiece(Piece.createBlackRook());
-    }
-    private String getWhitePawnsResult() {
-        return getPieceString(whitePawns);
-    }
-    private String getBlackPawnsResult() {
-        return getPieceString(blackPawns);
-    }
-    private String getWhitePiecesResult() {
-        return getPieceString(whitePieces);
-    }
-    private String getBlackPiecesResult() {
-        return getPieceString(blackPieces);
-    }
-    private String getPieceString(List<Piece> pieces) {
+//    public Piece findWhitePawn(int index){
+//        return whitePawns.get(index);
+//    }
+//    public Piece findBlackPawn(int index){
+//        return blackPawns.get(index);
+//    }
+    private String getRankString(Rank rank) {
         StringBuilder sb = new StringBuilder();
-        for (Piece piece : pieces) {
+        for (Piece piece : rank.getPieces()) {
             sb.append(piece.getRepresentation());
         }
         return sb.toString();
     }
     public String showBoard(){
-        String emptyLine = "........";
         StringBuilder sb = new StringBuilder();
-        sb.append(appendNewLine(getBlackPiecesResult()));
-        sb.append(appendNewLine(getBlackPawnsResult()));
-        for (int i = 0; i<4 ; i++){
-            sb.append(appendNewLine(emptyLine));
+        for (int i = 0; i<ranks.size()-1;i++){
+            sb.append(appendNewLine(getRankString(ranks.get(i))));
         }
-        sb.append(appendNewLine(getWhitePawnsResult()));
-        sb.append(getWhitePiecesResult());
+        sb.append(getRankString(ranks.get(7)));
         return sb.toString();
     }
 }
