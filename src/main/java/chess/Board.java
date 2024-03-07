@@ -80,10 +80,10 @@ public class Board {
     private String getBlackPiecesResult() {
         return getPieceString(blackPieces);
     }
-    private String getPieceString(List<Piece> pawns) {
+    private String getPieceString(List<Piece> pieces) {
         StringBuilder sb = new StringBuilder();
-        for (Piece pawn : pawns) {
-            sb.append(pawn.getRepresentation());
+        for (Piece piece : pieces) {
+            sb.append(piece.getRepresentation());
         }
         return sb.toString();
     }

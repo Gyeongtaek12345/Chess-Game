@@ -4,11 +4,12 @@ import static pieces.Piece.PieceColor.*;
 import static pieces.Piece.PieceType.*;
 public class Piece {
     public enum PieceColor {
-        WHITE, BLACK, NOCOLOR;
+        WHITE, BLACK, NO_COLOR;
     }
     public enum PieceType {
         PAWN('p'), KNIGHT('n'), ROOK('r'),
-        BISHOP('b'), QUEEN('q'), KING('k');
+        BISHOP('b'), QUEEN('q'), KING('k'),
+        NO_PIECE('.');
         private final char representation;
         PieceType(char representation) {
             this.representation = representation;
@@ -34,7 +35,7 @@ public class Piece {
         return teamColor.equals(WHITE);
     }
     public char getRepresentation(){
-        if (isWhite()){
+        if (isWhite() || teamColor.equals(NO_COLOR)){
             return pieceType.getWhiteRepresentation();
         }else {
             return pieceType.getBlackRepresentation();
@@ -76,5 +77,8 @@ public class Piece {
     }
     public static Piece createBlackKing() {
         return new Piece(BLACK, KING);
+    }
+    public static Piece createBlank() {
+        return new Piece(NO_COLOR, NO_PIECE);
     }
 }
